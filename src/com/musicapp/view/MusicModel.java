@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package musicfactory;
+package com.musicapp.view;
 
 import java.time.LocalDate;
 
@@ -75,8 +75,5 @@ public class MusicModel {
 
     public void setReleaseDate(LocalDate releaseDate) { // Setter for release date
         this.releaseDate = releaseDate;
-    }
-
-
-    
+    }    
 }

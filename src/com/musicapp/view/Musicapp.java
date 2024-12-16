@@ -2,13 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package musicfactory;
+package com.musicapp.view;
 
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -39,8 +36,7 @@ public class Musicapp extends javax.swing.JFrame {
         musicList = new LinkedList<>();
         musicValidationUtil = new MusicValidationUtil();
         initializeLayout();
-//        registerMusic();
-        loadDataFromFile();// Start the progress bar
+        loadInitialData();
     }
 
     private void initializeLayout() {
@@ -56,20 +52,62 @@ public class Musicapp extends javax.swing.JFrame {
         loadScreen("LoadingScreen");
     }
 
-    private void registerMusic() {
+    private void loadInitialData() {
         // Registering sample students
         MusicModel music1 = new MusicModel(
-                19057565, // Song ID
-                "Lekhnath Tandukar", // Song Title
-                "Radha", // Artist
-                2500, // Views
-                "Pop", // Genre
-                LocalDate.of(2020, 10, 11) // Release Date (YYYY, MM, DD)
-        );
-        MusicModel music2 = new MusicModel(19057566, "Subin Chhetri", "Radha", 7500, "POP", LocalDate.of(2012, 12, 07));
-        musicList.add(music1);
-        musicList.add(music2);
-        addListToTable();
+            19057565, // Song ID
+            "Lekhnath Tandukar", // Song Title
+            "Radha", // Artist
+            53000, // Views
+            "Pop", // Genre
+            LocalDate.of(2020, 10, 11) // Release Date
+    );
+
+    MusicModel music2 = new MusicModel(
+            19057566, // Song ID
+            "Subin Chhetri", // Song Title
+            "Radha", // Artist
+            1, // Views
+            "Pop", // Genre
+            LocalDate.of(2012, 12, 7) // Release Date
+    );
+
+    MusicModel music3 = new MusicModel(
+            19057567, // Song ID
+            "Sajjan Raj Vaidya", // Song Title
+            "Hataarindai Bataasindai", // Artist
+            120000, // Views
+            "Indie", // Genre
+            LocalDate.of(2019, 5, 24) // Release Date
+    );
+
+    MusicModel music4 = new MusicModel(
+            19057568, // Song ID
+            "Bipul Chettri", // Song Title
+            "Syndicate", // Artist
+            98000, // Views
+            "Folk Rock", // Genre
+            LocalDate.of(2014, 8, 15) // Release Date
+    );
+
+    MusicModel music5 = new MusicModel(
+            19057569, // Song ID
+            "Tribal Rain", // Song Title
+            "Bhanai", // Artist
+            75000, // Views
+            "Fusion", // Genre
+            LocalDate.of(2016, 3, 5) // Release Date
+    );
+
+    // Adding all MusicModel objects to the list
+    musicList.add(music1);
+    musicList.add(music2);
+    musicList.add(music3);
+    musicList.add(music4);
+    musicList.add(music5);
+
+    // Adding the list to the table
+    addListToTable();
 
     }
 
@@ -197,14 +235,12 @@ public class Musicapp extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(btnDelete)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(305, 305, 305)
+                .addComponent(btnDelete)
+                .addContainerGap(399, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,9 +442,7 @@ public class Musicapp extends javax.swing.JFrame {
         pnlLoginScreen.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 190, 100));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -447,69 +481,7 @@ public class Musicapp extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void loadDataFromFile() {
-        File file = new File("music_data.txt");
-        if (!file.exists()) {
-            System.out.println("No existing music file found. Starting with an empty table.");
-            return;
-        }
 
-        DefaultTableModel model = (DefaultTableModel) tblMusic.getModel();
-        model.setRowCount(0); // Clear any existing data in the table
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            boolean isFirstLine = true; // To skip the header line
-            while ((line = reader.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                // Split the line into columns
-                String[] data = line.split(",");
-                if (data.length == 6) { // Ensure there are exactly 6 columns
-                    Object[] rowData = {
-                        Integer.parseInt(data[0]), // Song ID
-                        data[1], // Song Title
-                        data[2], // Artist
-                        Integer.parseInt(data[3]), // Views
-                        data[4], // Genre
-                        data[5] // Release Date
-                    };
-                    model.addRow(rowData); // Add the validated row to the table
-                }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error parsing numeric data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void saveDataToFile() {
-        try (FileWriter writer = new FileWriter("music_data.txt")) {
-            DefaultTableModel model = (DefaultTableModel) tblMusic.getModel();
-            int rowCount = model.getRowCount();
-            int columnCount = model.getColumnCount();
-
-            // Write each row of data to the file
-            for (int i = 0; i < rowCount; i++) {
-                for (int j = 0; j < columnCount; j++) {
-                    writer.write(model.getValueAt(i, j).toString());
-                    if (j < columnCount - 1) {
-                        writer.write(","); // Separate columns with a comma
-                    }
-                }
-                writer.write("\n"); // Newline after each row
-            }
-            writer.flush();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error saving data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
@@ -581,9 +553,6 @@ private void loadDataFromFile() {
         });
 
         JOptionPane.showMessageDialog(null, "Song added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        // Save data to file
-        saveDataToFile();
 
         // Optionally clear input fields
         txtSongId.setText("");
@@ -670,39 +639,10 @@ private void loadDataFromFile() {
             // Remove the row from the table
             model.removeRow(selectedRow);
 
-            // Save the updated table data to the file
-            saveTableDataToFile();
-
             // Show success message
             JOptionPane.showMessageDialog(this, "Record deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "An error occurred while deleting the record.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-// Save the table data to the file
-    private void saveTableDataToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("music_data.txt"))) {
-            DefaultTableModel model = (DefaultTableModel) tblMusic.getModel();
-
-            // Write column headers
-            writer.write("Song ID,Song Title,Artist,Views,Genre,Release Date");
-            writer.newLine();
-
-            // Write each row of the table
-            for (int i = 0; i < model.getRowCount(); i++) {
-                writer.write(
-                        model.getValueAt(i, 0) + ","
-                        + model.getValueAt(i, 1) + ","
-                        + model.getValueAt(i, 2) + ","
-                        + model.getValueAt(i, 3) + ","
-                        + model.getValueAt(i, 4) + ","
-                        + model.getValueAt(i, 5)
-                );
-                writer.newLine();
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error saving data to file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -711,13 +651,11 @@ private void loadDataFromFile() {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        saveDataToFile();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        loadDataFromFile(); // Load data from the file
-        addListToTable();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
     private void clearFields() {
         txtSongId.setText("");
         txtSongTitle.setText("");
@@ -726,7 +664,7 @@ private void loadDataFromFile() {
         txtGenre.setText("");
         txtReleaseDate.setText("");
     }
-
+    
     public void addListToTable() {
         DefaultTableModel tableModel = (DefaultTableModel) tblMusic.getModel();
 

@@ -7,7 +7,7 @@ public class MusicValidationUtil {
     private static final Pattern SONG_ID_PATTERN = Pattern.compile("^\\d+$"); // Song ID: numeric
     private static final Pattern SONG_TITLE_PATTERN = Pattern.compile("^[a-zA-Z0-9\\s]{1,50}$"); // Song Title: alphanumeric, max 50 chars
     private static final Pattern ARTIST_NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]{1,50}$"); // Artist Name: alphabetic, max 50 chars
-    private static final String[] VALID_GENRES = {"POP", "ROCK", "JAZZ", "CLASSICAL", "HIPHOP", "COUNTRY", "ELECTRONIC"};
+    private static final String[] VALID_GENRES = {"POP", "FOLK ROCK", "JAZZ", "CLASSICAL", "HIPHOP", "INDIE", "FUSION"};
     private static final Pattern VIEWS_PATTERN = Pattern.compile("^\\d+$"); // Views: numeric
 
     // Validate if a string is null or empty
