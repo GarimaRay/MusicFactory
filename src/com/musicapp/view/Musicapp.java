@@ -6,15 +6,18 @@ package com.musicapp.view;
  */
 import com.musicapp.model.MusicModel;
 import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.musicapp.controller.MusicValidationUtil;
+import com.musicapp.controller.algorithm.InsertionSort;
+import com.musicapp.controller.algorithm.MergeSort;
+
+import com.musicapp.controller.algorithm.SelectionSort;
+import com.musicapp.controller.algorithm.Search;
+import javax.swing.JButton;
 
 /**
  *
@@ -53,78 +56,76 @@ public class Musicapp extends javax.swing.JFrame {
         loadScreen("LoadingScreen");
     }
 
-    private void loadInitialData() {
-        // Registering sample songs
-        MusicModel music1 = new MusicModel(
-                19057565, // Song ID
-                "Lekhnath Tandukar", // Song Title
-                "Radha", // Artist
-                53000, // Views
-                "Pop", // Genre
-                LocalDate.of(2020, 10, 11), // Release Date
-                "Nepal", // Country
-                "Lekhnath Hits", // Album
-                10 // Track Total
-        );
+   private void loadInitialData() {
+    MusicModel music1 = new MusicModel(
+        19057565, 
+        "Radha", 
+        "Lekhnath Tandukar", 
+        53000, 
+        "Pop", 
+        LocalDate.of(2020, 10, 11), 
+        "Nepal", 
+        "Lekhnath Hits", 
+        10
+    );
 
-        MusicModel music2 = new MusicModel(
-                19057566, // Song ID
-                "Subin Chhetri", // Song Title
-                "Radha", // Artist
-                1, // Views
-                "Pop", // Genre
-                LocalDate.of(2012, 12, 7), // Release Date
-                "Nepal", // Country
-                "Subin Classics", // Album
-                8 // Track Total
-        );
+    MusicModel music2 = new MusicModel(
+        19057566, 
+        "Radha", 
+        "Subin Chhetri", 
+        1, 
+        "Pop", 
+        LocalDate.of(2012, 12, 7), 
+        "Nepal", 
+        "Subin Classics", 
+        8
+    );
 
-        MusicModel music3 = new MusicModel(
-                19057567, // Song ID
-                "Sajjan Raj Vaidya", // Song Title
-                "Hataarindai Bataasindai", // Artist
-                120000, // Views
-                "Indie", // Genre
-                LocalDate.of(2019, 5, 24), // Release Date
-                "Nepal", // Country
-                "Sajjan Hits", // Album
-                12 // Track Total
-        );
+    MusicModel music3 = new MusicModel(
+        19057567, 
+        "Hataarindai Bataasindai", 
+        "Sajjan Raj Vaidya", 
+        120000, 
+        "Indie", 
+        LocalDate.of(2019, 5, 24), 
+        "Nepal", 
+        "Sajjan Hits", 
+        12
+    );
 
-        MusicModel music4 = new MusicModel(
-                19057568, // Song ID
-                "Bipul Chettri", // Song Title
-                "Syndicate", // Artist
-                98000, // Views
-                "Folk Rock", // Genre
-                LocalDate.of(2014, 8, 15), // Release Date
-                "India", // Country
-                "Bipul Classics", // Album
-                15 // Track Total
-        );
+    MusicModel music4 = new MusicModel(
+        19057568, 
+        "Syndicate", 
+        "Bipul Chettri", 
+        98000, 
+        "Folk Rock", 
+        LocalDate.of(2014, 8, 15), 
+        "India", 
+        "Bipul Classics", 
+        15
+    );
 
-        MusicModel music5 = new MusicModel(
-                19057569, // Song ID
-                "Tribal Rain", // Song Title
-                "Bhanai", // Artist
-                75000, // Views
-                "Fusion", // Genre
-                LocalDate.of(2016, 3, 5), // Release Date
-                "Nepal", // Country
-                "Tribal Sounds", // Album
-                9 // Track Total
-        );
+    MusicModel music5 = new MusicModel(
+        19057569, 
+        "Bhanai", 
+        "Tribal Rain", 
+        75000, 
+        "Fusion", 
+        LocalDate.of(2016, 3, 5), 
+        "Nepal", 
+        "Tribal Sounds", 
+        9
+    );
 
-        // Adding all MusicModel objects to the list
-        musicList.add(music1);
-        musicList.add(music2);
-        musicList.add(music3);
-        musicList.add(music4);
-        musicList.add(music5);
+    musicList.add(music1);
+    musicList.add(music2);
+    musicList.add(music3);
+    musicList.add(music4);
+    musicList.add(music5);
 
-        // Adding the list to the table
-        addListToTable();
-    }
+    addListToTable();
+}
+
 
     private void addListToTable() {
         DefaultTableModel model = (DefaultTableModel) tblMusic.getModel();
@@ -206,8 +207,11 @@ public class Musicapp extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        Jbtnsortbyviews = new javax.swing.JButton();
+        btnSearchTitleActionPerformed = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
+        btnSortTrackTotalActionPerformed = new javax.swing.JButton();
+        btnSortBySongTitle = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtViews = new javax.swing.JTextField();
         txtSongId = new javax.swing.JTextField();
@@ -241,7 +245,7 @@ public class Musicapp extends javax.swing.JFrame {
         pnlMainScreen.setBackground(new java.awt.Color(255, 255, 255));
         pnlMainScreen.setMaximumSize(new java.awt.Dimension(1280, 720));
         pnlMainScreen.setMinimumSize(new java.awt.Dimension(1280, 720));
-        pnlMainScreen.setPreferredSize(new java.awt.Dimension(800, 600));
+        pnlMainScreen.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         Tab3.setBackground(new java.awt.Color(0, 0, 0));
         Tab3.setForeground(new java.awt.Color(255, 255, 255));
@@ -376,23 +380,68 @@ public class Musicapp extends javax.swing.JFrame {
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicapp/resources/pp-modified-Photoroom.png"))); // NOI18N
         jLabel15.setText("jLabel15");
 
+        Jbtnsortbyviews.setText("Sort By Views");
+        Jbtnsortbyviews.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JbtnsortbyviewsActionPerformed(evt);
+            }
+        });
+
+        btnSearchTitleActionPerformed.setText("Search Title");
+        btnSearchTitleActionPerformed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchTitleActionPerformedActionPerformed(evt);
+            }
+        });
+
+        btnSortTrackTotalActionPerformed.setText("Sort By Track Total");
+        btnSortTrackTotalActionPerformed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortTrackTotalActionPerformedActionPerformed(evt);
+            }
+        });
+
+        btnSortBySongTitle.setText("Sort By Title");
+        btnSortBySongTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortBySongTitleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(827, 827, 827)
-                .addComponent(btnDelete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1532, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(btnSearchTitleActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(btnDelete)
+                                .addGap(70, 70, 70)
+                                .addComponent(Jbtnsortbyviews, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(btnSortTrackTotalActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(btnSortBySongTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
@@ -400,53 +449,38 @@ public class Musicapp extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnDelete)
+                                    .addComponent(Jbtnsortbyviews)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSortTrackTotalActionPerformed)
+                                    .addComponent(btnSortBySongTitle))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(btnSearchTitleActionPerformed))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         Tab3.addTab("Songs", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicapp/resources/download.png"))); // NOI18N
-        jLabel10.setText("jLabel10");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 2315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Tab3.addTab("Revenue", jPanel4);
-
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel2.setMaximumSize(new java.awt.Dimension(600, 800));
-        jPanel2.setMinimumSize(new java.awt.Dimension(600, 800));
+        jPanel2.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel2.setName(""); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -532,11 +566,11 @@ public class Musicapp extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicapp/resources/bb253fe8fb1aadd47582a94749f5b256-Photoroom.png"))); // NOI18N
         jLabel8.setText("jLabel8");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 480, 670));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 590, 670));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicapp/resources/1ada35740357f43f88d3ae77145a6b2f-Photoroom.png"))); // NOI18N
         jLabel11.setText("jLabel11");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 460, 560));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 460, 560));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicapp/resources/68513bd02a06cf6cb27a899f30520020-Photoroom.png"))); // NOI18N
         jLabel13.setText("jLabel13");
@@ -564,13 +598,13 @@ public class Musicapp extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMainScreenLayout.createSequentialGroup()
-                        .addComponent(Tab3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(Tab3, javax.swing.GroupLayout.PREFERRED_SIZE, 1549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlMainScreenLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66))))
         );
@@ -910,6 +944,69 @@ public class Musicapp extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "You have been logged out.", "Logout Successful", JOptionPane.INFORMATION_MESSAGE);
     }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+    private void loadListToTable(List<MusicModel> musicList) {
+    // Clear existing table rows
+    DefaultTableModel model = (DefaultTableModel) tblMusic.getModel();
+    model.setRowCount(0);
+
+    // Populate table with sorted data
+    for (MusicModel music : musicList) {
+        model.addRow(new Object[]{
+            music.getSongId(),
+            music.getSongTitle(),
+            music.getArtist(),
+            music.getView(),
+            music.getGenre(),
+            music.getReleaseDate(),
+            music.getCountry(),
+            music.getAlbum(),
+            music.getTrackTotal()
+        });
+    }
+}
+
+    private void JbtnsortbyviewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnsortbyviewsActionPerformed
+                                                 
+    // Create instance of SelectionSort
+    SelectionSort selectionSort = new SelectionSort();
+    
+    // Call the sorting method
+    List<MusicModel> sortedList = selectionSort.performSelectionSortByViews(musicList, false);
+    
+    // Reload the sorted list into the table
+    loadListToTable(sortedList);
+           // TODO add your handling code here:
+    }//GEN-LAST:event_JbtnsortbyviewsActionPerformed
+
+    private void btnSearchTitleActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchTitleActionPerformedActionPerformed
+                                             
+    // Input string for search
+    String searchString = jTextField5.getText();
+    
+    // Find intersections based on the search string
+    List<MusicModel> intersectedList = Search.findIntersectionByTitle(musicList, searchString);
+    
+    // Load the intersected list into the table
+    loadListToTable(intersectedList);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchTitleActionPerformedActionPerformed
+
+    private void btnSortTrackTotalActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortTrackTotalActionPerformedActionPerformed
+    
+    MergeSort mergeSort = new MergeSort();
+    musicList = mergeSort.sortByTrackTotal(musicList, false); // Change to true for descending order
+    addListToTable();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSortTrackTotalActionPerformedActionPerformed
+
+    private void btnSortBySongTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortBySongTitleActionPerformed
+       InsertionSort insertionSort = new InsertionSort();
+    List<MusicModel> sortedList = insertionSort.sortBySongTitle(musicList);
+    loadListToTable(sortedList); // TODO add your handling code here:
+    }//GEN-LAST:event_btnSortBySongTitleActionPerformed
+    
     private void clearFields() {
         txtSongId.setText("");
         txtSongTitle.setText("");
@@ -959,17 +1056,20 @@ public class Musicapp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Jbtnsortbyviews;
     private javax.swing.JProgressBar ProgressBar;
     private javax.swing.JTabbedPane Tab3;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSearchTitleActionPerformed;
+    private javax.swing.JButton btnSortBySongTitle;
+    private javax.swing.JButton btnSortTrackTotalActionPerformed;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -986,12 +1086,12 @@ public class Musicapp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JPanel pnlLoadingScreen;
     private javax.swing.JPanel pnlLoginScreen;
     private javax.swing.JPanel pnlMainScreen;
