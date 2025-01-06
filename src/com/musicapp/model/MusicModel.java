@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author chick
+  * @author 23048613 Garima Ray
  */
 public class MusicModel {
     private int songId;

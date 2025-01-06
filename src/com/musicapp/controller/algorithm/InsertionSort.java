@@ -5,8 +5,7 @@
 package com.musicapp.controller.algorithm;
 
 /**
- *
- * @author chick
+  * @author 23048613 Garima Ray
  */
 import com.musicapp.model.MusicModel;
 import java.util.ArrayList;

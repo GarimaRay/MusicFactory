@@ -6,10 +6,8 @@ package com.musicapp.controller.algorithm;
 
 /**
  *
- * @author chick
+ *  @author 23048613 Garima Ray
  */
-
-
 import com.musicapp.model.MusicModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +27,14 @@ public class MergeSort {
         return merge(sortByTrackTotal(left, isDesc), sortByTrackTotal(right, isDesc), isDesc);
     }
 
+    
     private List<MusicModel> merge(List<MusicModel> left, List<MusicModel> right, boolean isDesc) {
         List<MusicModel> merged = new ArrayList<>();
         int leftIndex = 0, rightIndex = 0;
 
         while (leftIndex < left.size() && rightIndex < right.size()) {
-            if ((isDesc && left.get(leftIndex).getTrackTotal() >= right.get(rightIndex).getTrackTotal()) ||
-                (!isDesc && left.get(leftIndex).getTrackTotal() <= right.get(rightIndex).getTrackTotal())) {
+            if ((isDesc && left.get(leftIndex).getTrackTotal() >= right.get(rightIndex).getTrackTotal())
+                    || (!isDesc && left.get(leftIndex).getTrackTotal() <= right.get(rightIndex).getTrackTotal())) {
                 merged.add(left.get(leftIndex));
                 leftIndex++;
             } else {
@@ -57,4 +56,3 @@ public class MergeSort {
         return merged;
     }
 }
-
